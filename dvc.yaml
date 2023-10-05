@@ -2,11 +2,34 @@ stages:
   preprocess:
     cmd: python preprocessing.py
     deps:
-      - data/bank-full.csv
+      - bank-full.csv
+    outs:
+      - preprocessed_bank_data.csv
 
   exploration:
-    cmd: python exploration.py
+    cmd: python explore.py
     deps:
-      - data/bank-full.csv
+      - preprocessed_bank_data.csv
+      - X_train_encoded.csv
+      - X_test_encoded.csv
+      - y_train.csv
+      - y_test.csv
     outs:
-      - data/exploration_result.txt
+      - exploration_result.txt
+
+  train:
+    cmd: python train.py
+    deps:
+      - data/X_train_encoded.csv
+      - data/y_train.csv
+    outs:
+      - trained_model.pkl
+
+  evaluate:
+    cmd: python evaluate.py
+    deps:
+      - data/X_test_encoded.csv
+      - data/y_test.csv
+      - trained_model.pkl
+    outs:
+      - evaluation_result.txt
