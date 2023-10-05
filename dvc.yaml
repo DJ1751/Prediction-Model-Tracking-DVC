@@ -1,0 +1,12 @@
+stages:
+  preprocess:
+    cmd: python preprocessing.py
+    deps:
+      - data/bank-full.csv
+
+  exploration:
+    cmd: python exploration.py
+    deps:
+      - data/bank-full.csv
+    outs:
+      - data/exploration_result.txt
